@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kidly | Cahier des charges</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0f0d0b;
+      --bg-soft:#171310;
+      --panel:#1d1814;
+      --panel-2:#241d18;
+      --paper:#f5eee3;
+      --text:#f8f3ec;
+      --muted:#b8aea1;
+      --line:rgba(255,255,255,.08);
+      --gold:#c9a56a;
+      --gold-soft:#f0d8ad;
+      --accent:#7c5cff;
+      --shadow:0 24px 70px rgba(0,0,0,.35);
+      --radius-xl:34px;
+      --radius-lg:24px;
+      --radius-md:18px;
+      --nav-h:72px;
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      scroll-behavior:smooth;
+    }
+
+    html{
+      scroll-padding-top: calc(var(--nav-h) + 18px);
+    }
+
+    body{
+      font-family:"Inter",sans-serif;
+      background:
+        radial-gradient(circle at 12% 10%, rgba(124,92,255,.15), transparent 22%),
+        radial-gradient(circle at 88% 18%, rgba(201,165,106,.12), transparent 22%),
+        linear-gradient(180deg, #0b0908 0%, #120f0d 100%);
+      color:var(--text);
+    }
+
+    .page{
+      max-width:1520px;
+      margin:0 auto;
+      padding:24px;
+    }
+
+    .shell{
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:40px;
+      overflow:hidden;
+      background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+      box-shadow:var(--shadow);
+      position:relative;
+    }
+
+    .shell::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size:44px 44px;
+      mask-image:linear-gradient(to bottom, rgba(0,0,0,.55), transparent 86%);
+      pointer-events:none;
+    }
+
+    .hero{
+      position:relative;
+      padding:38px 46px 54px;
+      border-bottom:1px solid var(--line);
+      overflow:hidden;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      width:380px;
+      height:380px;
+      right:-120px;
+      top:-160px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(201,165,106,.18), transparent 70%);
+      filter:blur(20px);
+      pointer-events:none;
+    }
+
+    .hero-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+      flex-wrap:wrap;
+      margin-bottom:34px;
+    }
+
+    .identity{
+      display:flex;
+      align-items:center;
+      gap:16px;
+    }
+
+    .logo{
+      width:96px;
+      height:96px;
+      border-radius:28px;
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.07);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:12px;
+      backdrop-filter:blur(10px);
+    }
+
+    .logo img{
+      max-width:100%;
+      max-height:100%;
+      object-fit:contain;
+    }
+
+    .identity-copy small{
+      display:block;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      font-size:12px;
+      color:var(--muted);
+      margin-bottom:6px;
+    }
+
+    .identity-copy strong{
+      display:block;
+      font-size:18px;
+      line-height:1.45;
+      color:var(--text);
+    }
+
+    .hero-links{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-links a{
+      text-decoration:none;
+      color:var(--text);
+      padding:12px 18px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.04);
+      font-size:14px;
+      font-weight:600;
+      transition:.25s ease;
+    }
+
+    .hero-links a:hover{
+      border-color:rgba(201,165,106,.45);
+      color:#fff;
+      transform:translateY(-2px);
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:28px;
+      align-items:end;
+    }
+
+    .hero-copy .label{
+      display:inline-block;
+      margin-bottom:18px;
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+      color:var(--gold-soft);
+      font-size:13px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .hero-copy h1{
+      font-family:"Cormorant Garamond",serif;
+      font-size:clamp(3.6rem, 8vw, 7rem);
+      line-height:.88;
+      letter-spacing:-.04em;
+      margin-bottom:20px;
+      color:var(--paper);
+    }
+
+    .hero-copy h1 span{
+      display:block;
+      color:var(--gold);
+    }
+
+    .hero-copy p{
+      max-width:760px;
+      color:var(--muted);
+      font-size:17px;
+      line-height:2;
+    }
+
+    .hero-side{
+      padding:30px;
+      border-radius:34px;
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.07);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero-side::after{
+      content:"";
+      position:absolute;
+      inset:auto -50px -50px auto;
+      width:180px;
+      height:180px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(124,92,255,.16), transparent 70%);
+      filter:blur(12px);
+    }
+
+    .hero-side h3{
+      position:relative;
+      z-index:1;
+      font-size:13px;
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      color:var(--gold);
+      margin-bottom:18px;
+    }
+
+    .meta{
+      position:relative;
+      z-index:1;
+      display:grid;
+      gap:14px;
+    }
+
+    .meta-row{
+      display:grid;
+      grid-template-columns:110px 1fr;
+      gap:12px;
+      padding-bottom:14px;
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+
+    .meta-row:last-child{
+      border-bottom:none;
+      padding-bottom:0;
+    }
+
+    .meta-row .m-label{
+      font-size:12px;
+      color:#9e9489;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+    }
+
+    .meta-row .m-value{
+      font-size:15px;
+      line-height:1.8;
+      color:#f5f0e8;
+    }
+
+    .nav-wrap{
+      position:sticky;
+      top:0;
+      z-index:50;
+      height:var(--nav-h);
+      padding:14px 20px;
+      border-bottom:1px solid var(--line);
+      background:rgba(15,13,11,.78);
+      backdrop-filter:blur(16px);
+    }
+
+    .nav{
+      display:flex;
+      gap:10px;
+      overflow-x:auto;
+      scrollbar-width:none;
+    }
+
+    .nav::-webkit-scrollbar{display:none}
+
+    .nav a{
+      white-space:nowrap;
+      text-decoration:none;
+      color:#bfb5a9;
+      padding:10px 16px;
+      border-radius:999px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.06);
+      font-size:14px;
+      transition:.25s ease;
+    }
+
+    .nav a:hover,
+    .nav a.active{
+      color:#fff;
+      border-color:rgba(201,165,106,.38);
+      background:linear-gradient(90deg, rgba(201,165,106,.16), rgba(124,92,255,.12));
+      transform:translateY(-2px);
+    }
+
+    .content{
+      padding:40px 46px 46px;
+      display:grid;
+      gap:54px;
+    }
+
+    .chapter{
+      display:grid;
+      grid-template-columns:220px 1fr;
+      gap:34px;
+      align-items:start;
+    }
+
+    .chapter.reverse{
+      grid-template-columns:1fr 220px;
+    }
+
+    .chapter.reverse .chapter-aside{
+      order:2;
+    }
+
+    .chapter.reverse .chapter-body{
+      order:1;
+    }
+
+    .chapter-aside{
+      position:sticky;
+      top:calc(var(--nav-h) + 26px);
+    }
+
+    .chapter-number{
+      font-family:"Cormorant Garamond",serif;
+      font-size:70px;
+      line-height:.9;
+      color:rgba(201,165,106,.75);
+      margin-bottom:10px;
+    }
+
+    .chapter-aside h2{
+      font-family:"Cormorant Garamond",serif;
+      font-size:34px;
+      line-height:1.05;
+      color:var(--paper);
+      margin-bottom:10px;
+    }
+
+    .chapter-aside p{
+      color:#a99f93;
+      line-height:1.9;
+      font-size:14px;
+    }
+
+    .chapter-body{
+      display:grid;
+      gap:18px;
+    }
+
+    .text-panel{
+      padding:30px;
+      border-radius:32px;
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015));
+      border:1px solid rgba(255,255,255,.07);
+    }
+
+    .text-panel p{
+      color:#d3cdd8;
+      font-size:15px;
+      line-height:2;
+      margin-bottom:14px;
+      max-width:980px;
+    }
+
+    .text-panel p:last-child{
+      margin-bottom:0;
+    }
+
+    .quote-panel{
+      padding:32px;
+      border-radius:32px;
+      background:linear-gradient(135deg, rgba(201,165,106,.12), rgba(124,92,255,.08));
+      border:1px solid rgba(255,255,255,.08);
+    }
+
+    .quote-panel p{
+      font-family:"Cormorant Garamond",serif;
+      font-size:34px;
+      line-height:1.25;
+      color:#f8f2ea;
+      max-width:800px;
+    }
+
+    .list-panel{
+      padding:30px;
+      border-radius:32px;
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015));
+      border:1px solid rgba(255,255,255,.07);
+    }
+
+    .list-panel ul{
+      padding-left:20px;
+      display:grid;
+      gap:10px;
+    }
+
+    .list-panel li{
+      color:#d3cdd8;
+      font-size:15px;
+      line-height:1.9;
+    }
+
+    .split{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:18px;
+    }
+
+    .box{
+      padding:24px;
+      border-radius:26px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.06);
+    }
+
+    .box h3{
+      font-size:18px;
+      margin-bottom:10px;
+      color:#fff6ea;
+    }
+
+    .box p{
+      color:#bfb7c6;
+      font-size:14px;
+      line-height:1.85;
+    }
+
+    .box ul{
+      padding-left:18px;
+      display:grid;
+      gap:8px;
+    }
+
+    .box li{
+      color:#cbc4d2;
+      font-size:14px;
+      line-height:1.8;
+    }
+
+    .feature-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:18px;
+    }
+
+    .feature{
+      padding:22px;
+      border-radius:26px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.06);
+    }
+
+    .feature h3{
+      color:#fff3e2;
+      margin-bottom:8px;
+      font-size:18px;
+    }
+
+    .feature p{
+      color:#bdb5c5;
+      font-size:14px;
+      line-height:1.85;
+    }
+
+    .footer{
+      padding:22px 34px 30px;
+      border-top:1px solid var(--line);
+      color:#8f8799;
+      font-size:13px;
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+
+    @media (max-width:1100px){
+      .hero-grid,
+      .chapter,
+      .chapter.reverse,
+      .split,
+      .feature-grid{
+        grid-template-columns:1fr;
+      }
+
+      .chapter.reverse .chapter-aside,
+      .chapter.reverse .chapter-body{
+        order:initial;
+      }
+
+      .chapter-aside{
+        position:static;
+      }
+    }
+
+    @media (max-width:760px){
+      .page{padding:12px}
+      .hero,.content,.footer{padding-left:18px;padding-right:18px}
+      .hero-copy h1{font-size:3.4rem}
+      .brand-logo{width:78px;height:78px}
+      .chapter-number{font-size:56px}
+      .chapter-aside h2{font-size:28px}
+      .quote-panel p{font-size:28px}
+      .meta-row{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="shell">
+
+      <header class="hero">
+        <div class="hero-top">
+          <div class="identity">
+            <div class="logo">
+              <img src="logo_univ.png" alt="Logo université">
+            </div>
+            <div class="identity-copy">
+              <small>Projet académique</small>
+              <strong>Université Abderrahmane Mira de Béjaïa</strong>
+            </div>
+          </div>
+
+          <div class="hero-links">
+            <a href="index.html">Retour à l’accueil</a>
+            <a href="rapport-final.html">Rapport final</a>
+          </div>
+        </div>
+
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <div class="label">Kidly · Cahier des charges</div>
+            <h1>Cahier des <span>charges</span></h1>
+            <p>
+              Ce document définit le cadre général du projet Kidly, sa logique, ses objectifs, les besoins auxquels il répond, les fonctionnalités attendues, son périmètre ainsi que les contraintes à prendre en considération.
+            </p>
+            <div class="hero-tags">
+              <div class="tag">Plateforme web et mobile</div>
+              <div class="tag">Parent - Crèche</div>
+              <div class="tag">Projet universitaire</div>
+            </div>
+          </div>
+
+          <div class="hero-side">
+            <h3>Repères du projet</h3>
+            <div class="meta">
+              <div class="meta-row">
+                <div class="m-label">Projet</div>
+                <div class="m-value">Kidly</div>
+              </div>
+              <div class="meta-row">
+                <div class="m-label">Nature</div>
+                <div class="m-value">Plateforme numérique Parent - Crèche</div>
+              </div>
+              <div class="meta-row">
+                <div class="m-label">Supports</div>
+                <div class="m-value">Web et mobile</div>
+              </div>
+              <div class="meta-row">
+                <div class="m-label">Année</div>
+                <div class="m-value">2025 - 2026</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="nav-wrap">
+        <nav class="nav" id="nav">
+          <a href="#intro">Introduction</a>
+          <a href="#problematique">Problématique</a>
+          <a href="#presentation">Présentation</a>
+          <a href="#objectifs">Objectifs</a>
+          <a href="#acteurs">Acteurs</a>
+          <a href="#analyse">Analyse</a>
+          <a href="#fonctionnels">Fonctionnels</a>
+          <a href="#nonfonctionnels">Non fonctionnels</a>
+          <a href="#specs">Spécifications</a>
+          <a href="#perimetre">Périmètre</a>
+          <a href="#contraintes">Contraintes</a>
+          <a href="#conclusion">Conclusion</a>
+        </nav>
+      </div>
+
+      <main class="content">
+        <section class="chapter" id="intro">
+          <aside class="chapter-aside">
+            <div class="chapter-number">01</div>
+            <h2>Introduction générale</h2>
+            <p>Cadre général et finalité du projet.</p>
+          </aside>
+          <div class="chapter-body">
+            <div class="text-panel">
+              <p>
+                À l’ère du numérique, les modes de communication et de gestion évoluent profondément, y compris dans des domaines du quotidien comme celui de la petite enfance. Les parents recherchent aujourd’hui des solutions plus simples, plus rapides et plus fiables pour trouver une crèche adaptée à leurs besoins, suivre les démarches d’inscription et maintenir un lien constant avec l’établissement choisi.
+              </p>
+              <p>
+                C’est dans cette perspective que s’inscrit notre projet, qui porte sur la conception d’une plateforme numérique Parent - Crèche accessible à la fois en version mobile et en version web.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="chapter reverse" id="problematique">
+          <aside class="chapter-aside">
+            <div class="chapter-number">02</div>
+            <h2>Problématique</h2>
+            <p>Constat et besoin de modernisation.</p>
+          </aside>
+          <div class="chapter-body">
+            <div class="quote-panel">
+              <p>Comment simplifier, centraliser et moderniser la relation entre les parents et les crèches privées dans un environnement numérique unique&nbsp;?</p>
+            </div>
+            <div class="text-panel">
+              <p>
+                Les démarches liées à la recherche d’une crèche, à l’inscription d’un enfant et au suivi des échanges entre les parents et les établissements restent souvent longues, dispersées et peu structurées.
+              </p>
+              <p>
+                Du côté des crèches, la gestion des demandes, des inscriptions, des paiements et de la communication peut également devenir complexe lorsqu’elle repose sur des méthodes classiques ou sur des échanges peu centralisés.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="chapter" id="presentation">
+          <aside class="chapter-aside">
+            <div class="chapter-number">03</div>
+            <h2>Présentation générale</h2>
+            <p>Vision d’ensemble de la plateforme.</p>
+          </aside>
+          <div class="chapter-body">
+            <div class="text-panel">
+              <p>
+                Kidly est une solution numérique conçue pour faciliter la mise en relation entre les parents et les crèches privées, tout en simplifiant les démarches liées à l’inscription, à la communication et au suivi des enfants.
+              </p>
+              <p>
+                Elle se présente sous deux formes complémentaires : une version mobile et une version web.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="chapter reverse" id="objectifs">
+          <aside class="chapter-aside">
+            <div class="chapter-number">04</div>
+            <h2>Objectifs du projet</h2>
+            <p>Ce que le projet doit apporter.</p>
+          </aside>
+          <div class="chapter-body">
+            <div class="list-panel">
+              <ul>
+                <li>Faciliter la recherche des crèches privées.</li>
+                <li>Permettre la comparaison selon les tarifs, les services et les avis.</li>
+                <li>Simplifier les démarches d’inscription.</li>
+                <li>Dématérialiser les documents liés à l’enfant.</li>
+                <li>Réduire l’usage des dossiers papier.</li>
+                <li>Améliorer la communication entre les parents et les crèches.</li>
+                <li>Centraliser les services liés au paiement, aux notifications, aux activités et au transport.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="chapter" id="acteurs">
+          <aside class="chapter-aside">
+            <div class="chapter-number">05</div>
+            <h2>Acteurs du système</h2>
+            <p>Les utilisateurs principaux du système.</p>
+          </aside>
+          <div class="chapter-body">
+            <div class="feature-grid">
+              <div class="feature">
+                <h3>Le parent</h3>
+                <p>Recherche une crèche, consulte les offres, envoie une demande d’inscription et suit les informations liées à son enfant.</p>
+              </div>
+              <div class="feature">
+                <h3>La crèche privée</h3>
+                <p>Publie ses offres, gère les demandes reçues, organise les inscriptions et communique avec les parents.</p>
+              </div>
+              <div class="feature">
+                <h3>L’administrateur</h3>
+                <p>Assure la supervision générale et le bon fonctionnement de la plateforme.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="chapter reverse" id="analyse">
+          <aside class="chapter-aside">
+            <div class="chapter-number">06</div>
+            <h2>Analyse des besoins</h2>
+            <p>Identification des attentes et besoins.</p>
+          </aside>
+          <div class="chapter-body">
+            <div class="text-panel">
+              <p>
+                L’analyse des besoins permet d’identifier les attentes principales auxquelles la plateforme doit répondre. Elle met en évidence les fonctions attendues par les utilisateurs ainsi que les exigences générales que le système doit respecter.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="chapter" id="fonctionnels">
+          <aside class="chapter-aside">
+            <div class="chapter-number">06.1</div>
+            <h2>Besoins fonctionnels</h2>
+            <p>Services attendus du système.</p>
+          </aside>
+          <div class="chapter-body">
+            <div class="list-panel">
+              <ul>
+                <li>Création et gestion des comptes utilisateurs.</li>
+                <li>Consultation des offres publiées par les crèches.</li>
+                <li>Recherche et filtrage des crèches selon différents critères.</li>
+                <li>Comparaison entre plusieurs crèches.</li>
+                <li>Ajout et gestion des enfants par le parent.</li>
+                <li>Dépôt et consultation des documents nécessaires.</li>
+                <li>Envoi des demandes d’inscription.</li>
+                <li>Réception et traitement des demandes par la crèche.</li>
+                <li>Communication via une messagerie intégrée.</li>
+                <li>Gestion du paiement selon les modes prévus par le système.</li>
+                <li>Envoi et réception de notifications.</li>
+                <li>Suivi des activités, du transport et des informations liées à l’enfant.</li>
+                <li>Organisation des enfants par classes du côté de la crèche.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="chapter reverse" id="nonfonctionnels">
+          <aside class="chapter-aside">
+            <div class="chapter-number">06.2</div>
+            <h2>Besoins non fonctionnels</h2>
+            <p>Exigences de qualité et de fonctionnement.</p>
+          </aside>
+          <div class="chapter-body">
+            <div class="split">
+              <div class="box">
+                <h3>Qualité d’usage</h3>
+                <ul>
+                  <li>Interface claire, simple et agréable.</li>
+                  <li>Navigation fluide et compréhensible.</li>
+                  <li>Temps de réponse raisonnable.</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h3>Exigences techniques</h3>
+                <ul>
+                  <li>Sécurité des données et des comptes.</li>
+                  <li>Confidentialité des documents.</li>
+                  <li>Compatibilité web et mobile.</li>
+                  <li>Fonctionnement stable et cohérent.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="chapter" id="specs">
+          <aside class="chapter-aside">
+            <div class="chapter-number">07</div>
+            <h2>Spécifications fonctionnelles</h2>
+            <p>Fonctionnalités à couvrir dans la plateforme.</p>
+          </aside>
+          <div class="chapter-body">
+            <div class="feature-grid">
+              <div class="feature">
+                <h3>Gestion des comptes</h3>
+                <p>Création, authentification et gestion des comptes selon le rôle de l’utilisateur.</p>
+              </div>
+              <div class="feature">
+                <h3>Consultation des crèches et des offres</h3>
+                <p>Consultation, recherche, filtrage et comparaison des crèches et des offres.</p>
+              </div>
+              <div class="feature">
+                <h3>Gestion des enfants et des documents</h3>
+                <p>Ajout des enfants et dépôt des documents nécessaires à l’inscription.</p>
+              </div>
+              <div class="feature">
+                <h3>Demandes d’inscription</h3>
+                <p>Envoi, réception, consultation et traitement des demandes.</p>
+              </div>
+              <div class="feature">
+                <h3>Messagerie intégrée</h3>
+                <p>Communication entre parents et crèches avant et après l’inscription.</p>
+              </div>
+              <div class="feature">
+                <h3>Paiement</h3>
+                <p>Prise en charge du paiement selon les modes prévus dans le système.</p>
+              </div>
+              <div class="feature">
+                <h3>Notifications</h3>
+                <p>Transmission des événements importants et des mises à jour utiles.</p>
+              </div>
+              <div class="feature">
+                <h3>Suivi des activités et du transport</h3>
+                <p>Suivi des informations liées à la vie de l’enfant après validation de l’inscription.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="chapter reverse" id="perimetre">
+          <aside class="chapter-aside">
+            <div class="chapter-number">08</div>
+            <h2>Périmètre du projet</h2>
+            <p>Délimitation des éléments inclus et exclus.</p>
+          </aside>
+          <div class="chapter-body">
+            <div class="split">
+              <div class="box">
+                <h3>Éléments inclus</h3>
+                <ul>
+                  <li>Consultation des crèches et des offres.</li>
+                  <li>Recherche, filtrage et comparaison.</li>
+                  <li>Gestion des comptes, enfants et documents.</li>
+                  <li>Demandes d’inscription.</li>
+                  <li>Messagerie.</li>
+                  <li>Paiement, notifications, activités et transport.</li>
+                  <li>Accès web et mobile.</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h3>Éléments exclus</h3>
+                <ul>
+                  <li>Gestion médicale avancée des enfants.</li>
+                  <li>Gestion pédagogique détaillée.</li>
+                  <li>Services externes ne relevant pas du fonctionnement principal.</li>
+                  <li>Fonctionnalités hors du cadre Parent - Crèche.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="chapter" id="contraintes">
+          <aside class="chapter-aside">
+            <div class="chapter-number">09</div>
+            <h2>Contraintes du projet</h2>
+            <p>Exigences techniques, d’usage et de cohérence.</p>
+          </aside>
+          <div class="chapter-body">
+            <div class="feature-grid">
+              <div class="feature">
+                <h3>Contraintes techniques</h3>
+                <p>Fonctionnement correct sur web et mobile, sécurité des comptes et des données, fluidité d’utilisation.</p>
+              </div>
+              <div class="feature">
+                <h3>Contraintes d’usage</h3>
+                <p>Plateforme simple à comprendre et facile à utiliser pour différents profils d’utilisateurs.</p>
+              </div>
+              <div class="feature">
+                <h3>Contraintes organisationnelles</h3>
+                <p>Projet réalisé dans un cadre académique avec un temps limité et une répartition des tâches au sein du groupe.</p>
+              </div>
+              <div class="feature">
+                <h3>Contraintes de cohérence</h3>
+                <p>Logique homogène entre la version web et la version mobile.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+       <section class="chapter reverse" id="conclusion">
+  <aside class="chapter-aside">
+    <div class="chapter-number">10</div>
+    <h2>Conclusion</h2>
+    <p>Synthèse générale du document.</p>
+  </aside>
+  <div class="chapter-body">
+    <div class="text-panel">
+      <p>
+        À travers ce cahier des charges, nous avons défini les éléments essentiels de la plateforme Kidly, ainsi que les principaux besoins auxquels elle doit répondre.
+      </p>
+      <p>
+        Ce document permet de poser un cadre clair autour du projet, en précisant ses objectifs, ses acteurs, ses fonctionnalités attendues, son périmètre et ses contraintes générales.
+      </p>
+      <p>
+        La plateforme envisagée se présente comme une solution numérique web et mobile destinée à simplifier la relation entre les parents et les crèches privées, à moderniser les démarches d’inscription et à améliorer la communication ainsi que le suivi des enfants.
+      </p>
+    </div>
+  </div>
+</section>
+      </main>
+
+      <footer class="footer">
+        <div>Kidly · Cahier des charges</div>
+        <div>Université Abderrahmane Mira de Béjaïa</div>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    const navLinks = document.querySelectorAll('#nav a');
+    const sections = document.querySelectorAll('section[id]');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => link.classList.remove('active'));
+          const active = document.querySelector('#nav a[href="#' + entry.target.id + '"]');
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { threshold: 0.38 });
+
+    sections.forEach(section => observer.observe(section));
+  </script>
+</body>
+</html>
