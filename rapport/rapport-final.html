@@ -1,1 +1,1262 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kidly | Rapport de projet de fin de cycle</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#f5f1e8;
+      --bg-2:#efe7da;
+      --paper:#fffdf9;
+      --paper-2:#f9f4ec;
+      --text:#211b17;
+      --muted:#6f665d;
+      --line:rgba(75,54,35,.12);
+      --brown:#8a5a3b;
+      --brown-dark:#5f3b23;
+      --sage:#7b9383;
+      --blue:#5e718d;
+      --rose:#b97f73;
+      --gold:#c6a46c;
+      --shadow:0 20px 60px rgba(82,58,36,.12);
+      --radius-xl:34px;
+      --radius-lg:24px;
+      --radius-md:18px;
+      --transition:.35s ease;
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      min-height:100vh;
+      font-family:"Inter",sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 8% 10%, rgba(185,127,115,.18), transparent 16%),
+        radial-gradient(circle at 90% 14%, rgba(123,147,131,.18), transparent 18%),
+        radial-gradient(circle at 70% 80%, rgba(94,113,141,.12), transparent 16%),
+        linear-gradient(180deg, #faf7f1 0%, #f3ede3 100%);
+      padding:24px;
+    }
+
+    .page{
+      max-width:1500px;
+      margin:0 auto;
+      transition:filter .4s ease, transform .4s ease;
+    }
+
+    .page.blurred{
+      filter:blur(10px);
+      transform:scale(.985);
+      pointer-events:none;
+      user-select:none;
+    }
+
+    .shell{
+      position:relative;
+      overflow:hidden;
+      border-radius:42px;
+      background:linear-gradient(180deg, rgba(255,255,255,.76), rgba(255,255,255,.52));
+      border:1px solid rgba(75,54,35,.10);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(16px);
+    }
+
+    .shell::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(rgba(138,90,59,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(138,90,59,.035) 1px, transparent 1px);
+      background-size:44px 44px;
+      mask-image:linear-gradient(to bottom, rgba(0,0,0,.35), transparent 88%);
+      pointer-events:none;
+    }
+
+    /* HEAD */
+    .report-head{
+      position:relative;
+      padding:0;
+      border-bottom:1px solid rgba(0,0,0,.08);
+      background:
+        linear-gradient(180deg, #f6efe5 0%, #efe5d7 100%);
+      overflow:hidden;
+    }
+
+    .report-head::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 10% 12%, rgba(185,127,115,.16), transparent 16%),
+        radial-gradient(circle at 88% 14%, rgba(94,113,141,.12), transparent 18%),
+        linear-gradient(120deg, transparent 0 58%, rgba(138,90,59,.05) 58% 62%, transparent 62% 100%);
+      pointer-events:none;
+    }
+
+    .report-head::after{
+      content:"";
+      position:absolute;
+      right:-70px;
+      bottom:-70px;
+      width:220px;
+      height:220px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(125,139,103,.16), transparent 70%);
+      filter:blur(14px);
+      pointer-events:none;
+    }
+
+    .head-frame{
+      position:relative;
+      z-index:2;
+      display:grid;
+      grid-template-columns:170px 1fr;
+      min-height:430px;
+    }
+
+    .head-side{
+      padding:24px 18px;
+      border-right:1px solid rgba(0,0,0,.08);
+      background:rgba(255,255,255,.28);
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      gap:18px;
+    }
+
+    .head-side-top{
+      display:grid;
+      gap:14px;
+    }
+
+    .head-logo{
+      width:76px;
+      height:76px;
+      object-fit:contain;
+      border-radius:18px;
+      background:#fff;
+      padding:8px;
+      border:1px solid rgba(0,0,0,.08);
+      box-shadow:0 8px 18px rgba(0,0,0,.06);
+    }
+
+    .side-label{
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      color:#8a5a3b;
+    }
+
+    .side-univ{
+      color:#4a4037;
+      font-size:14px;
+      line-height:1.85;
+    }
+
+    .side-year{
+      font-family:"Playfair Display",serif;
+      font-size:42px;
+      line-height:1;
+      color:rgba(95,59,35,.78);
+    }
+
+    .side-vertical{
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.30em;
+      color:#7d8b67;
+      writing-mode:vertical-rl;
+      transform:rotate(180deg);
+      align-self:flex-start;
+    }
+
+    .head-main{
+      position:relative;
+      padding:28px 34px 26px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+
+    .head-top{
+      display:flex;
+      justify-content:flex-end;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:18px;
+    }
+
+    .head-links{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .head-links a{
+      text-decoration:none;
+      color:#241d18;
+      padding:11px 16px;
+      border-radius:999px;
+      border:1px solid rgba(0,0,0,.10);
+      background:rgba(255,255,255,.74);
+      font-size:14px;
+      font-weight:600;
+      transition:.25s ease;
+    }
+
+    .head-links a:hover{
+      transform:translateY(-2px);
+      background:#fff;
+    }
+
+    .head-center{
+      display:grid;
+      gap:20px;
+      align-content:center;
+      min-height:250px;
+    }
+
+    .head-mini{
+      font-size:13px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:#8a5a3b;
+    }
+
+    .head-title-wrap{
+      position:relative;
+    }
+
+    .head-title-wrap::before{
+      content:"KIDLY";
+      position:absolute;
+      right:0;
+      top:-14px;
+      font-family:"Playfair Display",serif;
+      font-size:110px;
+      line-height:1;
+      color:rgba(33,27,23,.05);
+      pointer-events:none;
+      user-select:none;
+    }
+
+    .head-title{
+      position:relative;
+      z-index:1;
+      font-family:"Inter",sans-serif;
+      font-weight:800;
+      font-size:clamp(2.6rem, 5.5vw, 5rem);
+      line-height:.95;
+      letter-spacing:-.05em;
+      color:#211b17;
+      margin:0 0 8px 0;
+    }
+
+    .head-subtitle{
+      position:relative;
+      z-index:1;
+      font-family:"Playfair Display",serif;
+      font-size:clamp(2.4rem, 5.5vw, 4.8rem);
+      line-height:.96;
+      letter-spacing:-.05em;
+      color:#8a5a3b;
+      margin:0;
+    }
+
+    .head-desc-row{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:22px;
+      align-items:start;
+    }
+
+    .head-desc{
+      color:#6f665d;
+      font-size:16px;
+      line-height:1.95;
+    }
+
+    .head-note{
+      padding:18px 18px 16px;
+      border-radius:22px;
+      background:rgba(255,255,255,.62);
+      border:1px solid rgba(0,0,0,.08);
+    }
+
+    .head-note p{
+      color:#655b52;
+      font-size:14px;
+      line-height:1.85;
+      margin:0;
+    }
+
+    .head-bottom-actions{
+      display:flex;
+      justify-content:flex-start;
+      gap:12px;
+      flex-wrap:wrap;
+      padding-top:16px;
+    }
+
+    .head-action-btn{
+      border:none;
+      cursor:pointer;
+      padding:13px 22px;
+      border-radius:18px;
+      background:#231b16;
+      color:#fff;
+      font-size:14px;
+      font-weight:600;
+      transition:.25s ease;
+      box-shadow:0 8px 18px rgba(0,0,0,.08);
+    }
+
+    .head-action-btn:nth-child(2){
+      background:#7d8b67;
+    }
+
+    .head-action-btn:hover{
+      transform:translateY(-2px);
+      opacity:.95;
+    }
+
+    /* modals */
+    .mini-modal-overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(19,14,10,.20);
+      backdrop-filter:blur(10px);
+      display:none;
+      justify-content:center;
+      align-items:center;
+      padding:22px;
+      z-index:999;
+    }
+
+    .mini-modal-overlay.show{
+      display:flex;
+    }
+
+    .mini-modal-box{
+      width:min(760px, 100%);
+      background:linear-gradient(180deg, #fffdf9, #f7efe3);
+      border-radius:30px;
+      border:1px solid rgba(0,0,0,.10);
+      box-shadow:0 26px 60px rgba(0,0,0,.15);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .mini-modal-box::before{
+      content:"";
+      position:absolute;
+      inset:0 0 auto 0;
+      height:5px;
+      background:linear-gradient(90deg, #8a5a3b, #c6a46c, #7d8b67);
+    }
+
+    .mini-modal-inner{
+      padding:28px 26px 24px;
+    }
+
+    .mini-modal-box h3{
+      font-family:"Playfair Display",serif;
+      font-size:34px;
+      margin-bottom:14px;
+      color:#231b16;
+    }
+
+    .mini-modal-box p{
+      color:#5c5249;
+      line-height:1.95;
+      font-size:15px;
+      margin:0;
+    }
+
+    .mini-close-btn{
+      position:absolute;
+      top:14px;
+      right:14px;
+      width:44px;
+      height:44px;
+      border:none;
+      border-radius:14px;
+      background:#eee3d7;
+      cursor:pointer;
+      font-size:22px;
+      color:#231b16;
+      transition:.25s ease;
+    }
+
+    .mini-close-btn:hover{
+      transform:rotate(90deg);
+    }
+
+
+    /* CHAPTERS */
+    .chapters{
+      padding:42px 46px 54px;
+    }
+
+    .chapters-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:end;
+      gap:20px;
+      flex-wrap:wrap;
+      margin-bottom:26px;
+    }
+
+    .chapters-head h2{
+      font-family:"Playfair Display",serif;
+      font-size:38px;
+      color:var(--text);
+    }
+
+    .chapters-head p{
+      max-width:650px;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.9;
+    }
+
+    .mosaic{
+      display:grid;
+      grid-template-columns:repeat(12, 1fr);
+      gap:18px;
+      align-items:stretch;
+    }
+
+    .chapter-tile{
+      position:relative;
+      border:none;
+      cursor:pointer;
+      text-align:left;
+      overflow:hidden;
+      border-radius:30px;
+      padding:28px;
+      min-height:210px;
+      transition:var(--transition);
+      box-shadow:0 14px 36px rgba(82,58,36,.08);
+    }
+
+    .chapter-tile:hover{
+      transform:translateY(-5px) rotate(-.3deg);
+      box-shadow:0 24px 48px rgba(82,58,36,.12);
+    }
+
+    .tile-1{
+      grid-column:span 7;
+      background:linear-gradient(135deg, #fffdf9, #f8efe3);
+      border:1px solid rgba(138,90,59,.12);
+    }
+
+    .tile-2{
+      grid-column:span 5;
+      background:linear-gradient(135deg, #eef4ef, #dde9e1);
+      border:1px solid rgba(123,147,131,.16);
+    }
+
+    .tile-3{
+      grid-column:span 4;
+      background:linear-gradient(135deg, #eef1f8, #dfe7f4);
+      border:1px solid rgba(94,113,141,.16);
+    }
+
+    .tile-4{
+      grid-column:span 8;
+      background:linear-gradient(135deg, #fff8ee, #f5e7cf);
+      border:1px solid rgba(198,164,108,.18);
+    }
+
+    .tile-5{
+      grid-column:span 6;
+      background:linear-gradient(135deg, #fbf1ef, #f1d9d4);
+      border:1px solid rgba(185,127,115,.18);
+    }
+
+    .tile-6{
+      grid-column:span 6;
+      background:linear-gradient(135deg, #f5f3fb, #e5dff4);
+      border:1px solid rgba(121,99,163,.16);
+    }
+
+    .tile-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:14px;
+      margin-bottom:26px;
+    }
+
+    .tile-index{
+      font-family:"Playfair Display",serif;
+      font-size:34px;
+      line-height:1;
+      color:rgba(33,27,23,.78);
+    }
+
+    .tile-arrow{
+      width:52px;
+      height:52px;
+      border-radius:18px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:rgba(255,255,255,.52);
+      color:#2d241e;
+      font-size:22px;
+      transition:var(--transition);
+    }
+
+    .chapter-tile:hover .tile-arrow{
+      transform:translateX(4px);
+      background:rgba(255,255,255,.82);
+    }
+
+    .tile-title{
+      font-size:28px;
+      line-height:1.15;
+      color:var(--text);
+      margin-bottom:8px;
+      max-width:420px;
+    }
+
+    .tile-text{
+      color:rgba(33,27,23,.72);
+      font-size:14px;
+      line-height:1.9;
+      max-width:520px;
+    }
+
+    .tile-watermark{
+      position:absolute;
+      right:18px;
+      bottom:-4px;
+      font-family:"Playfair Display",serif;
+      font-size:92px;
+      line-height:1;
+      color:rgba(33,27,23,.06);
+      pointer-events:none;
+    }
+
+    .footer{
+      padding:22px 34px 30px;
+      border-top:1px solid var(--line);
+      color:#8a8178;
+      font-size:13px;
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+
+    /* MODAL */
+    .overlay{
+      position:fixed;
+      inset:0;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:24px;
+      background:rgba(245,241,232,.28);
+      backdrop-filter:blur(14px);
+      opacity:0;
+      visibility:hidden;
+      transition:var(--transition);
+      z-index:50;
+    }
+
+    .overlay.show{
+      opacity:1;
+      visibility:visible;
+    }
+
+    .reader{
+      width:min(1120px, 100%);
+      max-height:90vh;
+      overflow:auto;
+      border-radius:36px;
+      background:linear-gradient(180deg, rgba(255,255,255,.96), rgba(250,244,236,.94));
+      border:1px solid rgba(75,54,35,.10);
+      box-shadow:0 30px 80px rgba(70,49,31,.18);
+      transform:translateY(18px) scale(.98);
+      transition:var(--transition);
+    }
+
+    .overlay.show .reader{
+      transform:translateY(0) scale(1);
+    }
+
+    .reader-head{
+      position:sticky;
+      top:0;
+      z-index:2;
+      padding:24px 28px;
+      border-bottom:1px solid rgba(75,54,35,.08);
+      background:rgba(255,253,249,.84);
+      backdrop-filter:blur(16px);
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+
+    .reader-head small{
+      display:block;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      color:var(--brown);
+      margin-bottom:8px;
+    }
+
+    .reader-head h3{
+      font-family:"Playfair Display",serif;
+      font-size:36px;
+      color:var(--text);
+      margin-bottom:8px;
+    }
+
+    .reader-head p{
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.85;
+      max-width:720px;
+    }
+
+    .close-btn{
+      border:none;
+      cursor:pointer;
+      width:50px;
+      height:50px;
+      border-radius:18px;
+      background:rgba(138,90,59,.08);
+      border:1px solid rgba(138,90,59,.12);
+      color:var(--brown);
+      font-size:24px;
+      transition:var(--transition);
+    }
+
+    .close-btn:hover{
+      transform:rotate(90deg);
+      background:rgba(138,90,59,.14);
+    }
+   .chapter-logo-float{
+  position:absolute;
+  top:5px;
+  right:100px;
+  width:300px;
+  height:150px;
+  border-radius:22px;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+
+.chapter-logo-float img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+.chapter-logo-float:hover{
+  transform:translateY(-2px);
+     
+    }
+
+@media (max-width:768px){
+  .chapter-logo-float{
+    width:62px;
+    height:62px;
+    right:76px;
+    top:18px;
+    border-radius:18px;
+  }
+}
+
+    .reader-body{
+      padding:28px;
+      display:grid;
+      gap:18px;
+    }
+
+    .reader-section{
+      padding:24px;
+      border-radius:24px;
+      background:rgba(255,255,255,.72);
+      border:1px solid rgba(75,54,35,.08);
+    }
+
+    .reader-section h4{
+      font-size:18px;
+      margin-bottom:10px;
+      color:var(--blue);
+    }
+
+    .reader-section p{
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.95;
+      margin-bottom:10px;
+    }
+
+    .reader-section p:last-child{
+      margin-bottom:0;
+    }
+
+    .subparts{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:14px;
+    }
+
+    .subpart{
+      padding:18px;
+      border-radius:20px;
+      background:rgba(138,90,59,.04);
+      border:1px dashed rgba(138,90,59,.16);
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.8;
+    }
+
+    .subpart strong{
+      display:block;
+      color:var(--text);
+      margin-bottom:6px;
+      font-size:15px;
+    }
+
+    .reader-footer{
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+      padding:22px 28px 28px;
+    }
+
+    .nav-group{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .nav-btn{
+      border:none;
+      cursor:pointer;
+      padding:14px 18px;
+      border-radius:18px;
+      background:#fff;
+      border:1px solid rgba(75,54,35,.10);
+      color:var(--text);
+      font-size:14px;
+      font-weight:600;
+      transition:var(--transition);
+      box-shadow:0 8px 18px rgba(82,58,36,.06);
+    }
+
+    .nav-btn:hover{
+      transform:translateY(-2px);
+      border-color:rgba(138,90,59,.22);
+    }
+
+    @media (max-width:1050px){
+      .hero-grid,
+      .subparts{
+        grid-template-columns:1fr;
+      }
+
+      .tile-1,.tile-2,.tile-3,.tile-4,.tile-5,.tile-6{
+        grid-column:span 12;
+      }
+    }
+
+    @media (max-width:760px){
+      body{ padding:12px; }
+      .report-head,.chapters,.footer{ padding-left:18px; padding-right:18px; }
+      .chapters-head h2{ font-size:30px; }
+      .tile-title{ font-size:22px; }
+      .reader-head h3{ font-size:28px; }
+    }
+    .diagram-actions{
+  display:grid;
+  gap:14px;
+  margin-top:12px;
+}
+
+.diagram-btn{
+  border:none;
+  cursor:pointer;
+  text-align:left;
+  padding:16px 18px;
+  border-radius:18px;
+  background:#fff;
+  border:1px solid rgba(75,54,35,.10);
+  color:var(--text);
+  font-size:15px;
+  font-weight:600;
+  transition:.25s ease;
+  box-shadow:0 8px 18px rgba(82,58,36,.06);
+}
+
+.diagram-btn:hover{
+  transform:translateY(-2px);
+  border-color:rgba(138,90,59,.22);
+}
+
+.figure-overlay{
+  position:fixed;
+  inset:0;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  padding:24px;
+  background:rgba(20,15,12,.25);
+  backdrop-filter:blur(12px);
+  z-index:1000;
+}
+
+.figure-overlay.show{
+  display:flex;
+}
+
+.figure-modal{
+  width:min(1200px, 100%);
+  max-height:92vh;
+  overflow:auto;
+  border-radius:30px;
+  background:linear-gradient(180deg, rgba(255,255,255,.97), rgba(249,243,235,.95));
+  border:1px solid rgba(75,54,35,.10);
+  box-shadow:0 30px 80px rgba(0,0,0,.18);
+}
+
+.figure-head{
+  position:sticky;
+  top:0;
+  z-index:2;
+  padding:22px 24px;
+  border-bottom:1px solid rgba(75,54,35,.08);
+  background:rgba(255,253,249,.90);
+  backdrop-filter:blur(12px);
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:14px;
+}
+
+.figure-head h3{
+  font-family:"Playfair Display",serif;
+  font-size:30px;
+  color:var(--text);
+  margin:0 0 6px 0;
+}
+
+.figure-head p{
+  margin:0;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.8;
+}
+
+.figure-close{
+  border:none;
+  cursor:pointer;
+  width:46px;
+  height:46px;
+  border-radius:14px;
+  background:rgba(138,90,59,.08);
+  border:1px solid rgba(138,90,59,.12);
+  color:var(--brown);
+  font-size:22px;
+  transition:.25s ease;
+}
+
+.figure-close:hover{
+  transform:rotate(90deg);
+}
+
+.figure-body{
+  padding:22px;
+  text-align:center;
+}
+
+.figure-body img{
+  max-width:100%;
+  height:auto;
+  border-radius:18px;
+  border:1px solid rgba(0,0,0,.08);
+  box-shadow:0 10px 24px rgba(0,0,0,.08);
+}
+  </style>
+</head>
+<body>
+  <div class="page" id="page">
+    <div class="shell">
+
+      <header class="report-head">
+        <div class="head-frame">
+          <div class="head-side">
+            <div class="head-side-top">
+              <img src="logo_univ.png" alt="Logo université" class="head-logo">
+              
+              <div class="side-univ">
+                Université Abderrahmane Mira de Béjaïa
+              </div>
+            </div>
+
+            <div>
+              <div class="side-label">Année</div>
+              <div class="side-year">2025<br>2026</div>
+            </div>
+          </div>
+
+          <div class="head-main">
+            <div class="head-top">
+              <div class="head-links">
+                <a href="index.html">Accueil</a>
+                <a href="cahier-des-charges.html">Cahier des charges</a>
+              </div>
+            </div>
+
+            <div class="head-center">
+              <p class="head-mini">Projet de fin de cycle</p>
+
+              <div class="head-title-wrap">
+                <h1 class="head-title">Rapport final</h1>
+                <h2 class="head-subtitle">Plateforme Kidly Parent–Crèche</h2>
+              </div>
+
+              <div class="head-desc-row">
+                <div class="head-desc">
+                  Cette page présente le rapport du projet Kidly dans une forme web plus dynamique, où les chapitres sont consultables de manière interactive sans transformer le rapport en simple document statique.
+                </div>
+              </div>
+            </div>
+
+            <div class="head-bottom-actions">
+              <button class="head-action-btn" data-modal="remerciementModal">Remerciements</button>
+              <button class="head-action-btn" data-modal="dedicaceModal">Dédicace</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="mini-modal-overlay" id="remerciementModal">
+        <div class="mini-modal-box">
+          <button class="mini-close-btn">×</button>
+          <div class="mini-modal-inner">
+            <h3>Remerciements</h3>
+            <p>
+              Nous adressons nos sincères remerciements à toutes les personnes qui ont contribué, de près ou de loin, à la réalisation de ce projet. Nous exprimons également notre gratitude à notre encadrant pour ses orientations, ses conseils et son accompagnement tout au long de ce travail.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mini-modal-overlay" id="dedicaceModal">
+        <div class="mini-modal-box">
+          <button class="mini-close-btn">×</button>
+          <div class="mini-modal-inner">
+            <h3>Dédicace</h3>
+            <p>
+              Nous dédions ce travail à nos familles, à nos proches ainsi qu’à toutes les personnes qui nous ont soutenus et encouragés durant notre parcours universitaire.
+            </p>
+          </div>
+        </div>
+      </div>
+
+
+
+      <section class="chapters">
+        <div class="chapters-head">
+          <h2>Chapitres du rapport</h2>
+          <p>
+            Chaque bloc représente une entrée du rapport. Le contenu s’ouvre dans un lecteur central.
+          </p>
+        </div>
+
+        <div class="mosaic">
+          <button class="chapter-tile tile-1" data-chapter="chapitre1">
+            <div class="tile-top">
+              <div class="tile-index">I</div>
+              <div class="tile-arrow">→</div>
+            </div>
+            <h3 class="tile-title">Présentation du projet</h3>
+            <p class="tile-text">Ouverture générale du rapport, présentation de Kidly, contexte, objectif et espaces de l’application.</p>
+            <div class="tile-watermark">01</div>
+          </button>
+
+          <button class="chapter-tile tile-2" data-chapter="chapitre2">
+            <div class="tile-top">
+              <div class="tile-index">II</div>
+              <div class="tile-arrow">→</div>
+            </div>
+            <h3 class="tile-title">Analyse</h3>
+            <p class="tile-text">Problématique, critique de l’existant, questionnaire, acteurs, espaces et diagramme de contexte.</p>
+            <div class="tile-watermark">02</div>
+          </button>
+
+          <button class="chapter-tile tile-3" data-chapter="chapitre3">
+            <div class="tile-top">
+              <div class="tile-index">III</div>
+              <div class="tile-arrow">→</div>
+            </div>
+            <h3 class="tile-title">Conception</h3>
+            <p class="tile-text">UML, cas d’utilisation, diagramme de classes et modélisation des données.</p>
+            <div class="tile-watermark">03</div>
+          </button>
+
+          <button class="chapter-tile tile-4" data-chapter="chapitre4">
+            <div class="tile-top">
+              <div class="tile-index">IV</div>
+              <div class="tile-arrow">→</div>
+            </div>
+            <h3 class="tile-title">Outils et technologies utilisés</h3>
+            <p class="tile-text">Figma, Flutter, HTML|CSS|JS, Node.js, Express.js, MySQL, Postman, API utilisées et architecture technique.</p>
+            <div class="tile-watermark">04</div>
+          </button>
+
+          <button class="chapter-tile tile-5" data-chapter="chapitre5">
+            <div class="tile-top">
+              <div class="tile-index">V</div>
+              <div class="tile-arrow">→</div>
+            </div>
+            <h3 class="tile-title">Présentation de l’application</h3>
+            <p class="tile-text">Écrans, espaces, interfaces principales et organisation générale de Kidly.</p>
+            <div class="tile-watermark">05</div>
+          </button>
+
+          <button class="chapter-tile tile-6" data-chapter="chapitre6">
+            <div class="tile-top">
+              <div class="tile-index">VI</div>
+              <div class="tile-arrow">→</div>
+            </div>
+            <h3 class="tile-title">Fonctionnalités réalisées et reportées</h3>
+            <p class="tile-text">Fonctionnalités implémentées, fonctionnalités abandonnées ou reportées et justification des choix.</p>
+            <div class="tile-watermark">06</div>
+          </button>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div>Kidly · Rapport de projet de fin de cycle</div>
+        <div>Université Abderrahmane Mira de Béjaïa</div>
+      </footer>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay">
+    <div class="reader">
+      <div class="reader-head">
+        <div>
+          <small id="readerSmall">Chapitre I</small>
+          <h3 id="readerTitle">Présentation du projet</h3>
+          <p id="readerDesc">Présentation générale du projet Kidly et structure globale du premier chapitre.</p>
+        </div>
+        <button class="close-btn" id="closeBtn">×</button>
+
+  <div class="chapter-logo-float" id="chapterLogoFloat">
+    <img src="logo_kidly.png" alt="Logo Kidly">
+  </div>
+      </div>
+
+      <div class="reader-body" id="readerBody"></div>
+
+      <div class="reader-footer">
+        <button class="nav-btn" id="backBtn">Retour à la page</button>
+        <div class="nav-group">
+          <button class="nav-btn" id="prevBtn">Chapitre précédent</button>
+          <button class="nav-btn" id="nextBtn">Chapitre suivant</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="figure-overlay" id="figureOverlay">
+  <div class="figure-modal">
+    <div class="figure-head">
+      <div>
+        <h3 id="figureTitle">Diagramme</h3>
+        <p id="figureCaption">Affichage du diagramme</p>
+      </div>
+      <button class="figure-close" id="figureCloseBtn">×</button>
+    </div>
+
+    <div class="figure-body">
+      <img id="figureImage" src="" alt="Diagramme">
+    </div>
+  </div>
+</div>
+  <script>
+  window.chapterData = {};
+</script>
+
+<script src="chapitre1.js"></script>
+<script src="chapitre2.js"></script>
+<script src="chapitre3.js"></script>
+<script src="chapitre4.js"></script>
+<script src="chapitre5.js"></script>
+<script src="chapitre6.js"></script>
+<script>
+  const chapterOrder = [
+    "chapitre1",
+    "chapitre2",
+    "chapitre3",
+    "chapitre4",
+    "chapitre5",
+    "chapitre6"
+  ];
+
+  const page = document.getElementById("page");
+  const overlay = document.getElementById("overlay");
+  const closeBtn = document.getElementById("closeBtn");
+  const backBtn = document.getElementById("backBtn");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+
+  const readerSmall = document.getElementById("readerSmall");
+  const readerTitle = document.getElementById("readerTitle");
+  const readerDesc = document.getElementById("readerDesc");
+  const readerBody = document.getElementById("readerBody");
+
+  const chapterButtons = document.querySelectorAll(".chapter-tile");
+  const chapterLogoFloat = document.getElementById("chapterLogoFloat");
+
+  let currentChapterKey = null;
+
+  function renderChapter(chapterKey) {
+    const chapter = window.chapterData[chapterKey];
+    if (!chapter) return;
+
+    currentChapterKey = chapterKey;
+
+    readerSmall.textContent = chapter.small;
+    readerTitle.textContent = chapter.title;
+    readerDesc.textContent = chapter.desc;
+    readerBody.innerHTML = chapter.body;
+    if (chapterKey === "chapitre1") {
+  chapterLogoFloat.style.display = "flex";
+} else {
+  chapterLogoFloat.style.display = "none";
+}
+
+    const currentIndex = chapterOrder.indexOf(chapterKey);
+
+    prevBtn.style.display = currentIndex <= 0 ? "none" : "inline-flex";
+    nextBtn.style.display = currentIndex >= chapterOrder.length - 1 ? "none" : "inline-flex";
+  }
+
+  function openReader(chapterKey) {
+    renderChapter(chapterKey);
+    overlay.classList.add("show");
+    page.classList.add("blurred");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeReader() {
+    overlay.classList.remove("show");
+    page.classList.remove("blurred");
+    document.body.style.overflow = "";
+  }
+
+  chapterButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const chapterKey = btn.getAttribute("data-chapter");
+      openReader(chapterKey);
+    });
+  });
+
+  closeBtn.addEventListener("click", closeReader);
+  backBtn.addEventListener("click", closeReader);
+
+  prevBtn.addEventListener("click", () => {
+    const currentIndex = chapterOrder.indexOf(currentChapterKey);
+    if (currentIndex > 0) {
+      renderChapter(chapterOrder[currentIndex - 1]);
+    }
+  });
+
+  nextBtn.addEventListener("click", () => {
+    const currentIndex = chapterOrder.indexOf(currentChapterKey);
+    if (currentIndex < chapterOrder.length - 1) {
+      renderChapter(chapterOrder[currentIndex + 1]);
+    }
+  });
+
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) {
+      closeReader();
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (!overlay.classList.contains("show")) return;
+
+    if (e.key === "Escape") closeReader();
+
+    const currentIndex = chapterOrder.indexOf(currentChapterKey);
+
+    if (e.key === "ArrowLeft" && currentIndex > 0) {
+      renderChapter(chapterOrder[currentIndex - 1]);
+    }
+
+    if (e.key === "ArrowRight" && currentIndex < chapterOrder.length - 1) {
+      renderChapter(chapterOrder[currentIndex + 1]);
+    }
+  });
+</script>
+<script>
+  window.chapterFigures = window.chapterFigures || {};
+
+  const figureOverlay = document.getElementById("figureOverlay");
+  const figureCloseBtn = document.getElementById("figureCloseBtn");
+  const figureTitle = document.getElementById("figureTitle");
+  const figureCaption = document.getElementById("figureCaption");
+  const figureImage = document.getElementById("figureImage");
+
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest(".diagram-btn");
+    if (!btn) return;
+
+    const figureKey = btn.getAttribute("data-figure");
+    const figure = window.chapterFigures[figureKey];
+    if (!figure) return;
+
+    figureTitle.textContent = figure.title;
+    figureCaption.textContent = figure.caption;
+    figureImage.src = figure.src;
+    figureImage.alt = figure.title;
+
+    figureOverlay.classList.add("show");
+    document.body.style.overflow = "hidden";
+  });
+
+  function closeFigureModal() {
+    figureOverlay.classList.remove("show");
+    document.body.style.overflow = "";
+  }
+
+  figureCloseBtn.addEventListener("click", closeFigureModal);
+
+  figureOverlay.addEventListener("click", (e) => {
+    if (e.target === figureOverlay) {
+      closeFigureModal();
+    }
+  });
+</script>
+</body>
+</html>
